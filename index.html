@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JapanBuy - Japanese Shopping Service</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mobile.css" />
+</head>
+<body>
+
+  <svg class="flag-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="flag-en" viewBox="0 0 60 40">
+      <rect width="60" height="40" fill="#012169"/>
+      <path d="M0 0l60 40M60 0L0 40" stroke="#fff" stroke-width="8"/>
+      <path d="M0 0l60 40M60 0L0 40" stroke="#c8102e" stroke-width="3"/>
+      <path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="13"/>
+      <path d="M30 0v40M0 20h60" stroke="#c8102e" stroke-width="7"/>
+    </symbol>
+    <symbol id="flag-ja" viewBox="0 0 60 40">
+      <rect width="60" height="40" fill="#fff"/>
+      <circle cx="30" cy="20" r="10" fill="#bc002d"/>
+    </symbol>
+    <symbol id="flag-mn" viewBox="0 0 60 40">
+      <rect width="20" height="40" fill="#c4272f"/>
+      <rect x="20" width="20" height="40" fill="#015197"/>
+      <rect x="40" width="20" height="40" fill="#c4272f"/>
+      <g fill="#f9cf2f">
+        <path d="M10 4 7 8h2v4h2V8h2z"/>
+        <circle cx="10" cy="15" r="2.5"/>
+        <path d="M7 19h6v2H7zm-1 4h8v2H6zm2 4h4v7H8zm-3 7h10v2H5z"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="header-top">
+      <div class="logo">
+        <h1>JAPANBUY</h1>
+        <span>日本買物サービス</span>
+      </div>
+
+      <div class="search-wrap">
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="8" cy="8" r="6"/><path d="M14 14l-3-3"/>
+          </svg>
+          <input type="text" id="searchInput" data-i18n-ph="searchPh"
+                 placeholder="Search Japanese stores, brands..." autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Cart · Language · Theme · Menu -->
+      <div class="header-actions">
+        <button id="cartBtn" type="button" aria-label="Cart">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/>
+            <path d="M2 2h3l2.5 12h11l2-8H6"/>
+          </svg>
+          <span class="badge" id="cartBadge" data-zero="1">0</span>
+        </button>
+
+        <button id="langBtn" type="button" aria-label="Language">
+          <span id="langFlag" class="lang-flag"><svg class="flag-icon" viewBox="0 0 60 40"><use href="#flag-en"></use></svg></span>
+          <span id="langCode">EN</span>
+          <span class="caret">▾</span>
+        </button>
+
+        <button id="themeBtn" type="button" aria-label="Theme"></button>
+
+        <button id="menuBtn" type="button" aria-label="Menu">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <button type="button" data-goto="top"><span data-i18n="navHome">Home</span></button>
+      <button type="button" data-goto="stores"><span data-i18n="menuStores">Top Stores</span></button>
+      <button type="button" data-goto="categories"><span data-i18n="menuCategories">Categories</span></button>
+      <button type="button" data-goto="products"><span data-i18n="menuTrending">Trending</span></button>
+      <button type="button" data-goto="why"><span data-i18n="whyTitle">Our Advantages</span></button>
+      <button type="button" data-goto="howto"><span data-i18n="howToTitle">How to Order</span></button>
+      <button type="button" data-goto="contact"><span data-i18n="contactTitle">Contact Us</span></button>
+      <button type="button" data-goto="auth"><span data-i18n="authTitle">Account</span></button>
+    </nav>
+  </header>
+
+  <!-- ================= MAIN ================= -->
+  <main class="main">
+
+    <!-- Top Stores -->
+    <div class="section-title" data-i18n="shopFromStores">SHOP FROM TOP STORES</div>
+    <div class="stores" id="stores">
+      <div class="store" data-store="rakuten">
+        <div class="store-logo rakuten">楽天</div>
+        <div class="store-name"><span data-i18n="storeRakuten">Rakuten</span><small data-i18n="storeRakutenJp">楽天</small></div>
+      </div>
+      <div class="store" data-store="uniqlo">
+        <div class="store-logo uniqlo">UNIQLO</div>
+        <div class="store-name"><span data-i18n="storeUniqlo">Uniqlo</span><small data-i18n="storeUniqloJp">ユニクロ</small></div>
+      </div>
+      <div class="store" data-store="snkrs">
+        <div class="store-logo snkrs">SNKRS</div>
+        <div class="store-name"><span data-i18n="storeSnkrs">SNKRS</span><small data-i18n="storeSnkrsJp">スニク</small></div>
+      </div>
+      <div class="store" data-store="shiseido">
+        <div class="store-logo shiseido">SHISEIDO</div>
+        <div class="store-name"><span data-i18n="storeShiseido">Shiseido</span><small data-i18n="storeShiseidoJp">シセイド</small></div>
+      </div>
+      <div class="store" data-store="muji">
+        <div class="store-logo muji">MUJI</div>
+        <div class="store-name"><span data-i18n="storeMuji">Muji</span><small data-i18n="storeMujiJp">無印</small></div>
+      </div>
+      <div class="store" data-store="yodobashi">
+        <div class="store-logo yodobashi">Yodobashi</div>
+        <div class="store-name"><span data-i18n="storeYodobashi">Yodobashi</span><small data-i18n="storeYodobashiJp">ヨドバシ</small></div>
+      </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+      <div class="banner-content">
+        <h2 data-i18n="bannerTitle">GET THE BEST FROM JAPAN!</h2>
+        <p data-i18n="bannerText">Authentic items delivered worldwide. START SHOPPING</p>
+        <button class="banner-btn" id="bannerBtn" type="button" data-i18n="bannerBtn">EXPLORE NOW</button>
+      </div>
+      <div class="banner-visual"></div>
+    </div>
+
+    <!-- Categories -->
+    <div class="categories" id="categories">
+      <div class="cat" data-category="fashion">
+        <div class="cat-icon fashion">👕</div>
+        <div class="cat-name"><span data-i18n="catFashion">Fashion</span><small data-i18n="catFashionJp">ファッション</small></div>
+      </div>
+      <div class="cat" data-category="beauty">
+        <div class="cat-icon beauty">💄</div>
+        <div class="cat-name"><span data-i18n="catBeauty">Beauty</span><small data-i18n="catBeautyJp">ビューティ</small></div>
+      </div>
+      <div class="cat" data-category="tech">
+        <div class="cat-icon tech">💻</div>
+        <div class="cat-name"><span data-i18n="catTech">Tech</span><small data-i18n="catTechJp">テック</small></div>
+      </div>
+      <div class="cat" data-category="home">
+        <div class="cat-icon home">🏠</div>
+        <div class="cat-name"><span data-i18n="catHome">Home</span><small data-i18n="catHomeJp">ホーム</small></div>
+      </div>
+      <div class="cat" data-category="snacks">
+        <div class="cat-icon snacks">🍜</div>
+        <div class="cat-name"><span data-i18n="catSnacks">Snacks</span><small data-i18n="catSnacksJp">スナック</small></div>
+      </div>
+      <div class="cat" data-category="culture">
+        <div class="cat-icon culture">🎌</div>
+        <div class="cat-name"><span data-i18n="catCulture">Culture</span><small data-i18n="catCultureJp">カルチャー</small></div>
+      </div>
+    </div>
+
+   <!-- Trending Products -->
+    <div class="section-title" data-i18n="trendingNow">TRENDING NOW</div>
+    <div class="products" id="products"></div>
+
+    <!-- ================= WHY CHOOSE US ================= -->
+    <div class="section-title" id="why" data-i18n="whyTitle">OUR ADVANTAGES</div>
+
+    <div class="why-head">
+      <h2 data-i18n="whySubtitle">Why choose JAPANBUY?</h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🛡️</div>
+        <h3 data-i18n="why1Title">100% Authentic</h3>
+        <p data-i18n="why1Text">Every item sourced directly from official Japanese stores and brands.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌏</div>
+        <h3 data-i18n="why2Title">Worldwide Shipping</h3>
+        <p data-i18n="why2Text">Fast, tracked delivery to over 100 countries around the world.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <h3 data-i18n="why3Title">Best Prices</h3>
+        <p data-i18n="why3Text">Transparent pricing with zero hidden fees — what you see is what you pay.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💬</div>
+        <h3 data-i18n="why4Title">24/7 Support</h3>
+        <p data-i18n="why4Text">Friendly help in English, Japanese and Mongolian — anytime you need it.</p>
+      </div>
+    </div>
+<!-- ================= AUTH SECTION ================= -->
+    <div class="section-title" id="auth" data-i18n="authTitle">ACCOUNT</div>
+
+    <div class="auth-section">
+      <!-- Зочин (нэвтрээгүй) харагдац -->
+      <div class="auth-guest" id="authGuest">
+        <div class="auth-avatar">👤</div>
+        <h2 data-i18n="authHeading">Welcome to JAPANBUY</h2>
+        <p data-i18n="authSubtext">Log in or create an account to start shopping</p>
+        <div class="auth-buttons">
+          <button class="auth-btn primary" type="button" id="openLoginBtn" data-i18n="btnLogin">LOG IN</button>
+          <button class="auth-btn secondary" type="button" id="openRegisterBtn" data-i18n="btnRegister">SIGN UP</button>
+        </div>
+      </div>
+
+<div class="auth-user" id="authUser" hidden>
+        <div class="auth-avatar logged">✓</div>
+        <h2><span data-i18n="welcomeBack">Welcome back,</span> <strong id="userNameDisplay"></strong></h2>
+        <p class="auth-email" id="userEmailDisplay"></p>
+        <button class="auth-btn secondary" type="button" id="logoutBtn" data-i18n="btnLogout">LOG OUT</button>
+      </div>
+    </div>
+  </main>
+
+      <!-- Нэвтэрсэн хэрэглэгчийн харагдац -->
+      <div class="auth-user" id="authUser" hidden>
+        <div class="auth-avatar logged">✓</div>
+        <h2><span data-i18n="welcomeBack">Welcome back,</span> <strong id="userNameDisplay"></strong></h2>
+        <p class="auth-email" id="userEmailDisplay"></p>
+        <button class="auth-btn secondary" type="button" id="logoutBtn" data-i18n="btnLogout">LOG OUT</button>
+      </div>
+    </div>
+<!-- ================= HOW IT WORKS ================= -->
+    <div class="section-title" id="howto" data-i18n="howToTitle">SIMPLE 4 STEPS</div>
+
+    <div class="howto-head">
+      <h2 data-i18n="howToSubtitle">Ordering Guide & Payment Types</h2>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-icon">👤</div>
+        <h3 data-i18n="step1Title">Create Account</h3>
+        <p data-i18n="step1Text">Sign up or log in to unlock shopping access.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-icon">🔍</div>
+        <h3 data-i18n="step2Title">Browse &amp; Select</h3>
+        <p data-i18n="step2Text">Pick items from your favorite Japanese stores.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-icon">🛒</div>
+        <h3 data-i18n="step3Title">Add to Cart</h3>
+        <p data-i18n="step3Text">Review your cart and confirm quantities.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-icon">💳</div>
+        <h3 data-i18n="step4Title">Pay &amp; Receive</h3>
+        <p data-i18n="step4Text">Checkout securely and get it delivered worldwide.</p>
+      </div>
+    </div>
+
+    <div class="payment-block">
+      <h3 class="payment-title" data-i18n="paymentTitle">Accepted Payment Methods</h3>
+      <div class="payment-grid">
+        <div class="pay-chip"><span class="pay-emoji">💳</span><span data-i18n="payVisa">Visa / Mastercard</span></div>
+        <div class="pay-chip"><span class="pay-emoji">🅿️</span><span data-i18n="payPaypal">PayPal</span></div>
+        <div class="pay-chip"><span class="pay-emoji">🏦</span><span data-i18n="payBank">Bank Transfer</span></div>
+        <div class="pay-chip"><span class="pay-emoji">🏪</span><span data-i18n="payKonbini">Konbini (Japan)</span></div>
+      </div>
+    </div>
+<!-- ================= CONTACT ================= -->
+    <div class="section-title" id="contact" data-i18n="contactTitle">CONTACT US</div>
+
+    <div class="contact-head">
+      <h2 data-i18n="contactSubtitle">Get in touch with us</h2>
+    </div>
+
+    <div class="social-grid">
+      <a class="social-card facebook" href="https://facebook.com/japanbuy" target="_blank" rel="noopener" aria-label="Facebook">
+        <div class="social-icon">f</div>
+        <span class="social-name">Facebook</span>
+      </a>
+      <a class="social-card line" href="https://line.me/R/ti/p/@japanbuy" target="_blank" rel="noopener" aria-label="LINE">
+        <div class="social-icon">L</div>
+        <span class="social-name">LINE</span>
+      </a>
+      <a class="social-card instagram" href="https://instagram.com/japanbuy" target="_blank" rel="noopener" aria-label="Instagram">
+        <div class="social-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <span class="social-name">Instagram</span>
+      </a>
+      <a class="social-card gmail" href="mailto:hello@japanbuy.com" aria-label="Gmail">
+        <div class="social-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+        </div>
+        <span class="social-name">Gmail</span>
+      </a>
+    </div>
+
+    <div class="phone-bar">
+      <button class="phone-item" type="button" data-phone="+81 90-1234-5678">
+        <span class="phone-flag">🇯🇵</span>
+        <span class="phone-num">+81 90-1234-5678</span>
+        <span class="phone-copy" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </span>
+      </button>
+      <button class="phone-item" type="button" data-phone="+976 9911-2233">
+        <span class="phone-flag">🇲🇳</span>
+        <span class="phone-num">+976 9911-2233</span>
+        <span class="phone-copy" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+
+    <!-- ================= BRAND MARQUEE ================= -->
+    <div class="brand-marquee">
+      <!-- Row 1: зүүнээс баруун тийш -->
+      <div class="marquee-track marquee-rtl">
+        <div class="marquee-inner">
+          <span class="brand-logo rakuten">楽天</span>
+          <span class="brand-logo uniqlo">UNIQLO</span>
+          <span class="brand-logo snkrs">SNKRS</span>
+          <span class="brand-logo shiseido">SHISEIDO</span>
+          <span class="brand-logo muji">MUJI</span>
+          <span class="brand-logo yodobashi">Yodobashi</span>
+          <span class="brand-logo rakuten">楽天</span>
+          <span class="brand-logo uniqlo">UNIQLO</span>
+          <span class="brand-logo snkrs">SNKRS</span>
+          <span class="brand-logo shiseido">SHISEIDO</span>
+          <span class="brand-logo muji">MUJI</span>
+          <span class="brand-logo yodobashi">Yodobashi</span>
+          <span class="brand-logo rakuten">楽天</span>
+          <span class="brand-logo uniqlo">UNIQLO</span>
+          <span class="brand-logo snkrs">SNKRS</span>
+          <span class="brand-logo shiseido">SHISEIDO</span>
+          <span class="brand-logo muji">MUJI</span>
+          <span class="brand-logo yodobashi">Yodobashi</span>
+        </div>
+      </div>
+      <!-- Row 2: баруунаас зүүн тийш -->
+      <div class="marquee-track marquee-ltr">
+        <div class="marquee-inner">
+          <span class="brand-logo yodobashi">Yodobashi</span>
+          <span class="brand-logo muji">MUJI</span>
+          <span class="brand-logo shiseido">SHISEIDO</span>
+          <span class="brand-logo snkrs">SNKRS</span>
+          <span class="brand-logo uniqlo">UNIQLO</span>
+          <span class="brand-logo rakuten">楽天</span>
+          <span class="brand-logo yodobashi">Yodobashi</span>
+          <span class="brand-logo muji">MUJI</span>
+          <span class="brand-logo shiseido">SHISEIDO</span>
+          <span class="brand-logo snkrs">SNKRS</span>
+          <span class="brand-logo uniqlo">UNIQLO</span>
+          <span class="brand-logo rakuten">楽天</span>
+          <span class="brand-logo yodobashi">Yodobashi</span>
+          <span class="brand-logo muji">MUJI</span>
+          <span class="brand-logo shiseido">SHISEIDO</span>
+          <span class="brand-logo snkrs">SNKRS</span>
+          <span class="brand-logo uniqlo">UNIQLO</span>
+          <span class="brand-logo rakuten">楽天</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <!-- Top: Logo + Description -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <h2>JAPANBUY</h2>
+          <span>日本買物サービス</span>
+        </div>
+        <p class="footer-desc" data-i18n="footerDesc">
+          The most reliable proxy shopping and cargo platform to order Japan's top brand clothing directly.
+        </p>
+      </div>
+
+      <!-- Middle: Pages + Social -->
+      <div class="footer-cols">
+
+        <!-- Pages -->
+        <div class="footer-col">
+          <h3 class="footer-heading" data-i18n="footerPages">Pages</h3>
+          <ul class="footer-links">
+            <li><button type="button" class="footer-link" data-goto="top"><span data-i18n="navHome">Home</span></button></li>
+            <li><button type="button" class="footer-link" data-goto="stores"><span data-i18n="menuStores">Top Stores</span></button></li>
+            <li><button type="button" class="footer-link" data-goto="categories"><span data-i18n="menuCategories">Categories</span></button></li>
+            <li><button type="button" class="footer-link" data-goto="products"><span data-i18n="menuTrending">Trending</span></button></li>
+            <li><button type="button" class="footer-link" data-goto="why"><span data-i18n="whyTitle">Our Advantages</span></button></li>
+            <li><button type="button" class="footer-link" data-goto="howto"><span data-i18n="howToTitle">How to Order</span></button></li>
+            <li><button type="button" class="footer-link" data-goto="contact"><span data-i18n="contactTitle">Contact Us</span></button></li>
+            <li><button type="button" class="footer-link" data-goto="auth"><span data-i18n="authTitle">Account</span></button></li>
+          </ul>
+        </div>
+
+        <!-- Social -->
+        <div class="footer-col">
+          <h3 class="footer-heading" data-i18n="footerFollow">Follow Us</h3>
+          <div class="footer-social">
+            <a class="footer-social-link facebook" href="https://facebook.com/japanbuy" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/>
+              </svg>
+              <span>Facebook</span>
+            </a>
+            <a class="footer-social-link line" href="https://line.me/R/ti/p/@japanbuy" target="_blank" rel="noopener" aria-label="LINE">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.5 2 2 5.6 2 10c0 2.6 1.6 5 4 6.5V22l3.5-1.9c.8.1 1.6.2 2.5.2 5.5 0 10-3.6 10-8s-4.5-10.3-10-10.3zM7.5 12.4H6.2V9h1.3v3.4zm2.7 0H9V9h1.2v3.4zm4.4 0h-1.3v-1.9l-1.6 1.9h-.9V9h1.3v1.9L13.7 9h.9v3.4zm3.7-2h-2.1v.5h2v.9h-2v.5h2.1v.9h-3.3V9h3.3v1.4z"/>
+              </svg>
+              <span>LINE</span>
+            </a>
+            <a class="footer-social-link instagram" href="https://instagram.com/japanbuy" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+            <a class="footer-social-link gmail" href="mailto:hello@japanbuy.com" aria-label="Gmail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M2 7l10 7 10-7"/>
+              </svg>
+              <span>Gmail</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom: Copyright -->
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 JAPANBUY Proxy Shopping App. All rights reserved.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= GO TO TOP BUTTON ================= -->
+  <button class="go-top" id="goTop" type="button" aria-label="Scroll to top">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+  </main>
+  </main>
+
+
+  <!-- ================= BOTTOM NAV (mobile only) ================= -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" type="button" data-nav="home">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span data-i18n="navHome">Home</span>
+    </button>
+    <button class="nav-item" type="button" data-nav="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <span data-i18n="navSearch">Search</span>
+    </button>
+    <button class="nav-item" type="button" data-nav="categories">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+      <span data-i18n="navCategories">Categories</span>
+    </button>
+    <button class="nav-item" type="button" data-nav="cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 2h3l2.5 12h11l2-8H6"/>
+      </svg>
+      <span data-i18n="navCart">Cart</span>
+      <span class="nav-badge" id="navBadge" data-zero="1">0</span>
+    </button>
+    <button class="nav-item" type="button" data-nav="account">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span data-i18n="navAccount">Account</span>
+    </button>
+  </nav>
+
+  <!-- ================= OVERLAY ================= -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ================= MENU DRAWER ================= -->
+  <aside class="drawer" id="menuDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2 data-i18n="menu">Menu</h2>
+      <button class="drawer-close" type="button" data-close="menuDrawer" aria-label="Close">✕</button>
+    </div>
+    <div class="drawer-body">
+      <button class="menu-link" type="button" data-goto="top"><span class="mi">🏠</span><span data-i18n="menuHome">Home</span></button>
+      <button class="menu-link" type="button" data-goto="stores"><span class="mi">🏬</span><span data-i18n="menuStores">Top Stores</span></button>
+      <button class="menu-link" type="button" data-goto="categories"><span class="mi">🗂️</span><span data-i18n="menuCategories">Categories</span></button>
+      <button class="menu-link" type="button" data-goto="products"><span class="mi">🔥</span><span data-i18n="menuTrending">Trending</span></button>
+<button class="menu-link" type="button" data-goto="auth"><span class="mi">🔐</span><span data-i18n="authTitle">Account</span></button>
+<button class="menu-link" type="button" data-goto="why"><span class="mi">⭐</span><span data-i18n="whyTitle">Our Advantages</span></button>
+      <button class="menu-link" type="button" data-goto="cart"><span class="mi">🛒</span><span data-i18n="menuCart">My Cart</span></button>
+
+      <div class="drawer-label" data-i18n="language">Language</div>
+      <div class="chip-row">
+        <button class="lang-chip" type="button" data-lang="en"><svg class="flag-icon" viewBox="0 0 60 40"><use href="#flag-en"></use></svg> EN</button>
+        <button class="lang-chip" type="button" data-lang="ja"><svg class="flag-icon" viewBox="0 0 60 40"><use href="#flag-ja"></use></svg> 日本語</button>
+        <button class="lang-chip" type="button" data-lang="mn"><svg class="flag-icon" viewBox="0 0 60 40"><use href="#flag-mn"></use></svg> МОНГОЛ</button>
+      </div>
+
+      <div class="drawer-label" data-i18n="theme">Theme</div>
+      <div class="chip-row">
+        <button class="lang-chip" type="button" data-theme-set="light" data-i18n="themeLight">Light</button>
+        <button class="lang-chip" type="button" data-theme-set="dark" data-i18n="themeDark">Dark</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= CART DRAWER ================= -->
+  <aside class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2 data-i18n="cartTitle">Your Cart</h2>
+      <button class="drawer-close" type="button" data-close="cartDrawer" aria-label="Close">✕</button>
+    </div>
+    <div class="cart-list" id="cartList"></div>
+    <div class="cart-foot">
+      <div class="cart-total">
+        <span data-i18n="subtotal">Subtotal</span>
+        <strong id="cartTotal">¥0</strong>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" type="button" data-i18n="checkout">CHECKOUT</button>
+      <button class="clear-btn" id="clearCartBtn" type="button" data-i18n="clearCart">Clear cart</button>
+    </div>
+  </aside>
+
+  <!-- ================= DETAILS MODAL ================= -->
+  <div class="modal" id="detailModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close" type="button" id="detailClose" aria-label="Close">✕</button>
+      <div class="modal-emoji" id="detailEmoji">🧥</div>
+      <h3 id="detailName"></h3>
+      <div class="modal-price" id="detailPrice"></div>
+      <button class="modal-add" type="button" id="detailAdd" data-i18n="btnCart">ADD TO CART</button>
+    </div>
+  </div>
+
+<!-- ================= LOGIN MODAL ================= -->
+  <div class="modal" id="loginModal" role="dialog" aria-modal="true">
+    <div class="modal-card auth-card">
+      <button class="modal-close" type="button" data-close="loginModal" aria-label="Close">✕</button>
+      <h3 data-i18n="loginTitle">Log In</h3>
+      <p class="auth-sub" data-i18n="loginSub">Welcome back! Please log in to continue.</p>
+      <form id="loginForm" novalidate>
+        <input type="email" id="loginEmail" data-i18n-ph="phEmail" placeholder="Email" autocomplete="email" required />
+        <input type="password" id="loginPassword" data-i18n-ph="phPassword" placeholder="Password" autocomplete="current-password" required />
+        <p class="auth-error" id="loginError" hidden></p>
+        <button type="submit" class="auth-submit" data-i18n="btnLoginSubmit">LOG IN</button>
+      </form>
+      <p class="auth-switch">
+        <span data-i18n="noAccount">Don't have an account?</span>
+        <button type="button" class="link-btn" id="switchToRegister" data-i18n="btnRegister">Sign up</button>
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= REGISTER MODAL ================= -->
+  <div class="modal" id="registerModal" role="dialog" aria-modal="true">
+    <div class="modal-card auth-card">
+      <button class="modal-close" type="button" data-close="registerModal" aria-label="Close">✕</button>
+      <h3 data-i18n="registerTitle">Sign Up</h3>
+      <p class="auth-sub" data-i18n="registerSub">Create your account to start shopping.</p>
+      <form id="registerForm" novalidate>
+        <input type="text" id="regName" data-i18n-ph="phName" placeholder="Full name" autocomplete="name" required />
+        <input type="email" id="regEmail" data-i18n-ph="phEmail" placeholder="Email" autocomplete="email" required />
+        <input type="password" id="regPassword" data-i18n-ph="phPassword" placeholder="Password" autocomplete="new-password" minlength="4" required />
+        <input type="password" id="regConfirm" data-i18n-ph="phConfirm" placeholder="Confirm password" autocomplete="new-password" minlength="4" required />
+        <p class="auth-error" id="registerError" hidden></p>
+        <button type="submit" class="auth-submit" data-i18n="btnRegisterSubmit">CREATE ACCOUNT</button>
+      </form>
+      <p class="auth-switch">
+        <span data-i18n="haveAccount">Already have an account?</span>
+        <button type="button" class="link-btn" id="switchToLogin" data-i18n="btnLogin">Log in</button>
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= TOAST ================= -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
