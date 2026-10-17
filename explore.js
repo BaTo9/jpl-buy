@@ -1,10 +1,7 @@
 /* ============================================================
    JapanBuy — explore.js
-   Full-screen "Explore" modal — self-contained
-   - Injects its own HTML into <body>
-   - Reads language from localStorage (jb_lang)
-   - Auto-attaches to the banner button (#bannerBtn)
-   - Exposes window.ExploreModal.open() / .close()
+   Explore view — route-style
+   Header устгагдсан, ✕ товчлуур "Shop by Category"-д шилжсэн
    ============================================================ */
 
 (function () {
@@ -15,7 +12,6 @@
      ========================================================= */
   var EX_I18N = {
     en: {
-      title:'Explore JAPANBUY',
       shopByCat:'Shop by Category',
       featured:'Featured Products',
       viewAll:'View All →',
@@ -32,7 +28,6 @@
       addedToast:'Added to cart'
     },
     ja: {
-      title:'JAPANBUYを探索',
       shopByCat:'カテゴリーで探す',
       featured:'おすすめ商品',
       viewAll:'すべて表示 →',
@@ -49,7 +44,6 @@
       addedToast:'カートに追加しました'
     },
     mn: {
-      title:'JAPANBUY-г судлах',
       shopByCat:'Ангилалаар хайх',
       featured:'Онцлох бүтээгдэхүүн',
       viewAll:'Бүгдийг харах →',
@@ -80,22 +74,20 @@
   }
 
   /* =========================================================
-     2. HTML TEMPLATE
+     2. HTML TEMPLATE — Header устгагдсан
      ========================================================= */
   var HTML =
-    '<div class="explore-modal" id="exploreModal" role="dialog" aria-modal="true" aria-hidden="true">' +
+    '<div class="explore-modal" id="exploreModal">' +
       '<div class="explore-content">' +
-
-        '<div class="explore-header">' +
-          '<h2 data-ex-i18n="title">Explore JAPANBUY</h2>' +
-          '<button class="explore-close" type="button" id="exploreClose" aria-label="Close">✕</button>' +
-        '</div>' +
 
         '<div class="explore-body">' +
 
-          /* ---------- 1. SHOP BY CATEGORY ---------- */
+          /* ---------- 1. SHOP BY CATEGORY (✕ энд) ---------- */
           '<section class="ex-section">' +
-            '<div class="ex-section-head"><h3 data-ex-i18n="shopByCat">Shop by Category</h3></div>' +
+            '<div class="ex-section-head">' +
+              '<h3 data-ex-i18n="shopByCat">Shop by Category</h3>' +
+              '<button class="explore-close" type="button" id="exploreClose" aria-label="Close">✕</button>' +
+            '</div>' +
             '<div class="ex-cat-row">' +
               '<div class="ex-cat-card" style="--cat-bg:linear-gradient(135deg,#4b5563,#6b7280)">' +
                 '<div class="ex-cat-icon">👨</div><span data-ex-i18n="catMen">Men</span></div>' +
@@ -110,7 +102,7 @@
             '</div>' +
           '</section>' +
 
-          /* ---------- 2. FEATURED PRODUCTS ---------- */
+          /* ---------- 2. FEATURED ---------- */
           '<section class="ex-section">' +
             '<div class="ex-section-head">' +
               '<h3 data-ex-i18n="featured">Featured Products</h3>' +
@@ -279,11 +271,10 @@
             '</div>' +
           '</section>' +
 
-        '</div>' +   /* /explore-body */
-      '</div>' +     /* /explore-content */
-    '</div>';        /* /explore-modal */
+        '</div>' +
+      '</div>' +
+    '</div>';
 
-  /* --- HTML builders for repeated cards --- */
   function buildProdCard(emoji, bg, name, sub, rating, reviews, price, oldPrice) {
     return '<div class="ex-prod-card">' +
       '<button class="ex-heart" type="button" aria-label="wishlist">🤍</button>' +
@@ -332,16 +323,19 @@
   var modalEl = null;
 
   /* =========================================================
-     4. INJECT HTML
+     4. INJECT
      ========================================================= */
   function inject() {
-    if (document.getElementById('exploreModal')) return;
+    if (document.getElementById('exploreModal')) {
+      modalEl = document.getElementById('exploreModal');
+      return;
+    }
     document.body.insertAdjacentHTML('beforeend', HTML);
     modalEl = document.getElementById('exploreModal');
   }
 
   /* =========================================================
-     5. APPLY i18n
+     5. i18n
      ========================================================= */
   function applyI18n() {
     if (!modalEl) return;
@@ -356,25 +350,20 @@
   /* =========================================================
      6. OPEN / CLOSE
      ========================================================= */
+  function isOpen() { return document.body.classList.contains('explore-open'); }
+
   function open() {
     if (!modalEl) inject();
     applyI18n();
-    modalEl.classList.add('open');
-    modalEl.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    modalEl.scrollTop = 0;
+    document.body.classList.add('explore-open');
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }
   function close() {
-    if (!modalEl) return;
-    modalEl.classList.remove('open');
-    modalEl.setAttribute('aria-hidden', 'true');
-    /* Зөвхөн өөр modal/drawer нээлттэй биш бол overflow-г буцаана */
-    var anyOpen = document.querySelector('.modal.open, .drawer.open');
-    if (!anyOpen) document.body.style.overflow = '';
+    document.body.classList.remove('explore-open');
   }
 
   /* =========================================================
-     7. GLOBAL TOAST (main toast-ыг дахин ашиглах)
+     7. TOAST
      ========================================================= */
   function showToast(msg) {
     var el = document.getElementById('toast');
@@ -388,34 +377,37 @@
   }
 
   /* =========================================================
-     8. BIND EVENTS
+     8. BIND
      ========================================================= */
   function bind() {
-    /* Close button */
     var closeBtn = document.getElementById('exploreClose');
     if (closeBtn) closeBtn.addEventListener('click', close);
 
-    /* Click outside modal */
-    modalEl.addEventListener('click', function (e) {
-      if (e.target === modalEl) close();
-    });
-
-    /* ESC key */
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && modalEl.classList.contains('open')) {
-        close();
-      }
+      if (e.key === 'Escape' && isOpen()) close();
     });
 
-    /* Add-to-cart buttons (delegated) */
+    /* Nav товчлуур дарахад эхлээд Explore хаагдана */
+    document.addEventListener('click', function (e) {
+      if (!isOpen()) return;
+      var btn = e.target.closest(
+        '.bottom-nav .nav-item,' +
+        '#menuBtn,' +
+        '#cartBtn,' +
+        '#langBtn,' +
+        '#themeBtn,' +
+        '.header-actions button'
+      );
+      if (btn) close();
+    }, true);
+
+    /* Add to cart */
     modalEl.addEventListener('click', function (e) {
       var addBtn = e.target.closest('.ex-add-btn, .ex-btn-primary, .ex-checkout-btn');
-      if (addBtn) {
-        showToast(t('addedToast'));
-      }
+      if (addBtn) showToast(t('addedToast'));
     });
 
-    /* Thumbnail selection */
+    /* Thumbnails */
     modalEl.addEventListener('click', function (e) {
       var thumb = e.target.closest('.ex-thumb');
       if (thumb) {
@@ -425,7 +417,7 @@
       }
     });
 
-    /* Color / size selection */
+    /* Colors / sizes */
     modalEl.addEventListener('click', function (e) {
       var color = e.target.closest('.ex-color, .ex-color-dot');
       if (color) {
@@ -433,16 +425,21 @@
         for (var i = 0; i < group.length; i++) group[i].classList.remove('active');
         color.classList.add('active');
       }
-      var size = e.target.closest('.ex-sizes button, .ex-size-row button');
-      if (size && size.parentNode.classList.contains('ex-sizes') === false) {
-        /* filter sidebar size */
+      var size = e.target.closest('.ex-size-row button');
+      if (size) {
         var row = size.parentNode.querySelectorAll('button');
         for (var j = 0; j < row.length; j++) row[j].classList.remove('active');
         size.classList.add('active');
       }
+      var size2 = e.target.closest('.ex-sizes button');
+      if (size2) {
+        var row2 = size2.parentNode.querySelectorAll('button');
+        for (var k = 0; k < row2.length; k++) row2[k].classList.remove('active');
+        size2.classList.add('active');
+      }
     });
 
-    /* Quantity +/- */
+    /* Qty */
     modalEl.addEventListener('click', function (e) {
       var qtyBox = e.target.closest('.ex-qty');
       if (!qtyBox) return;
@@ -453,19 +450,24 @@
       if (current < 1) current = 1;
       label.textContent = current;
     });
+
+    /* Continue Shopping */
+    var contBtn = modalEl.querySelector('.ex-continue');
+    if (contBtn) contBtn.addEventListener('click', close);
   }
 
   /* =========================================================
-     9. ATTACH TO BANNER BUTTON
-     Clone the button to remove script.js's old handler,
-     then attach our own.
+     9. BANNER
      ========================================================= */
   function attachToBanner() {
     var old = document.getElementById('bannerBtn');
     if (!old) return;
     var fresh = old.cloneNode(true);
     old.parentNode.replaceChild(fresh, old);
-    fresh.addEventListener('click', open);
+    fresh.addEventListener('click', function (e) {
+      e.preventDefault();
+      open();
+    });
   }
 
   /* =========================================================
@@ -485,11 +487,12 @@
   }
 
   /* =========================================================
-     11. EXPOSE GLOBAL API
+     11. GLOBAL API
      ========================================================= */
   window.ExploreModal = {
     open: open,
-    close: close
+    close: close,
+    isOpen: isOpen
   };
 
 })();
