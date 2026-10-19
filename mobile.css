@@ -222,7 +222,8 @@ body { padding-bottom:92px; }
 
 @media (max-width: 520px) {
   .header-top { flex-wrap:wrap; gap:8px 10px; padding:10px 16px; }
-  .banner { padding-inline:12px; }
+  .banner { align-items:center; padding-inline:12px; }
+  .banner-content { text-align:center; }
   .logo h1 { font-size:14px; }
   .logo span { font-size:8px; }
   .header-actions { gap:4px; margin-left:auto; }
