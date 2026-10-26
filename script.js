@@ -17,7 +17,18 @@
     { id:'muji-diffuser',  emoji:'🕯️', price:4900,  key:'p5', tags:['muji','home'] },
     { id:'nike-airmax',    emoji:'👟', price:16500, key:'p6', tags:['snkrs','fashion'] },
     { id:'ghibli-figure',  emoji:'🐉', price:8800,  key:'p7', tags:['rakuten','culture'] },
-    { id:'sony-xm5',       emoji:'🎧', price:49500, key:'p8', tags:['yodobashi','tech'] }
+    { id:'sony-xm5',       emoji:'🎧', price:49500, key:'p8', tags:['yodobashi','tech'] },
+    { id:'gap-hoodie',    emoji:'👕', price:7990,  key:'p9',  tags:['gap','fashion'] },
+    { id:'gap-denim',     emoji:'👖', price:9990,  key:'p10', tags:['gap','fashion'] },
+    { id:'uniqlo-heat',   emoji:'🧣', price:1990,  key:'p11', tags:['uniqlo','fashion'] },
+    { id:'zara-blazer',   emoji:'🧥', price:15990, key:'p12', tags:['zara','fashion'] },
+    { id:'zara-dress',    emoji:'👗', price:9990,  key:'p13', tags:['zara','fashion'] },
+    { id:'hm-sweater',    emoji:'🧶', price:3999,  key:'p14', tags:['hm','fashion'] },
+    { id:'hm-jeans',      emoji:'👖', price:4999,  key:'p15', tags:['hm','fashion'] },
+    { id:'gu-sweat',      emoji:'👚', price:1990,  key:'p16', tags:['gu','fashion'] },
+    { id:'gu-pants',      emoji:'👖', price:2490,  key:'p17', tags:['gu','fashion'] },
+    { id:'mk-bag',        emoji:'👜', price:38500, key:'p18', tags:['mk','fashion'] },
+    { id:'mk-wallet',     emoji:'👛', price:16500, key:'p19', tags:['mk','fashion'] }
   ];
 
   function productById(id) {
@@ -42,12 +53,12 @@
       btnCart:'ADD TO CART',
       noResults:'No products found',
 
-      storeRakuten:'Rakuten', storeRakutenJp:'楽天',
+      storeGap:'Gap', storeGapJp:'ギャップ',
       storeUniqlo:'Uniqlo', storeUniqloJp:'ユニクロ',
-      storeSnkrs:'SNKRS', storeSnkrsJp:'スニク',
-      storeShiseido:'Shiseido', storeShiseidoJp:'シセイド',
-      storeMuji:'Muji', storeMujiJp:'無印',
-      storeYodobashi:'Yodobashi', storeYodobashiJp:'ヨドバシ',
+      storeZara:'ZARA', storeZaraJp:'ザラ',
+      storeGu:'GU', storeGuJp:'ジーユー',
+      storeHm:'H&M', storeHmJp:'エイチ＆エム',
+      storeMk:'Michael Kors', storeMkJp:'マイケル・コース',
 
       catFashion:'Fashion', catFashionJp:'ファッション',
       catBeauty:'Beauty', catBeautyJp:'ビューティ',
@@ -64,6 +75,7 @@
       p6:'Nike Air Max (SNKRS Exclusive)',
       p7:'Studio Ghibli Figure',
       p8:'Sony WH-1000XM5 Headphones',
+      p9:'Gap Logo Hoodie', p10:'Gap Denim Jeans', p11:'Uniqlo HEATTECH Extra Warm', p12:'ZARA Tailored Blazer', p13:'ZARA Satin Dress', p14:'H&M Knit Sweater', p15:'H&M Slim Jeans', p16:'GU Oversized Sweatshirt', p17:'GU Wide Pants', p18:'Michael Kors Jet Set Tote Bag', p19:'Michael Kors Leather Wallet',
 
       navHome:'Home', navSearch:'Search', navCategories:'Categories', navCart:'Cart', navAccount:'Account',
 
@@ -162,12 +174,12 @@
       btnCart:'カートに追加',
       noResults:'商品が見つかりません',
 
-      storeRakuten:'楽天', storeRakutenJp:'Rakuten',
+      storeGap:'ギャップ', storeGapJp:'GAP',
       storeUniqlo:'ユニクロ', storeUniqloJp:'Uniqlo',
-      storeSnkrs:'スニク', storeSnkrsJp:'SNKRS',
-      storeShiseido:'シセイド', storeShiseidoJp:'Shiseido',
-      storeMuji:'無印', storeMujiJp:'MUJI',
-      storeYodobashi:'ヨドバシ', storeYodobashiJp:'Yodobashi',
+      storeZara:'ザラ', storeZaraJp:'ZARA',
+      storeGu:'ジーユー', storeGuJp:'GU',
+      storeHm:'エイチ＆エム', storeHmJp:'H&M',
+      storeMk:'マイケル・コース', storeMkJp:'Michael Kors',
 
       catFashion:'ファッション', catFashionJp:'Fashion',
       catBeauty:'ビューティ', catBeautyJp:'Beauty',
@@ -184,6 +196,7 @@
       p6:'ナイキ エアマックス（SNKRS限定）',
       p7:'スタジオジブリ フィギュア',
       p8:'ソニー WH-1000XM5 ヘッドホン',
+      p9:'GAP ロゴパーカー', p10:'GAP デニムジーンズ', p11:'ユニクロ ヒートテック極暖', p12:'ZARA テーラードブレザー', p13:'ZARA サテンワンピース', p14:'H&M ニットセーター', p15:'H&M スリムジーンズ', p16:'GU オーバーサイズスウェット', p17:'GU ワイドパンツ', p18:'マイケル・コース トートバッグ', p19:'マイケル・コース レザーウォレット',
 
       navHome:'ホーム', navSearch:'検索', navCategories:'カテゴリ', navCart:'カート', navAccount:'アカウント',
 
@@ -282,12 +295,12 @@
       btnCart:'САГСАНД ХИЙХ',
       noResults:'Бүтээгдэхүүн олдсонгүй',
 
-      storeRakuten:'Rakuten', storeRakutenJp:'楽天',
+      storeGap:'Gap', storeGapJp:'ギャップ',
       storeUniqlo:'Uniqlo', storeUniqloJp:'ユニクロ',
-      storeSnkrs:'SNKRS', storeSnkrsJp:'スニク',
-      storeShiseido:'Shiseido', storeShiseidoJp:'シセイド',
-      storeMuji:'Muji', storeMujiJp:'無印',
-      storeYodobashi:'Yodobashi', storeYodobashiJp:'ヨドバシ',
+      storeZara:'ZARA', storeZaraJp:'ザラ',
+      storeGu:'GU', storeGuJp:'ジーユー',
+      storeHm:'H&M', storeHmJp:'エイチ＆エム',
+      storeMk:'Michael Kors', storeMkJp:'マイケル・コース',
 
       catFashion:'Хувцас', catFashionJp:'ファッション',
       catBeauty:'Гоо сайхан', catBeautyJp:'ビューティ',
@@ -304,6 +317,7 @@
       p6:'Nike Air Max (SNKRS онцгой)',
       p7:'Studio Ghibli дүрс',
       p8:'Sony WH-1000XM5 чихэвч',
+      p9:'Gap логотой hoodie', p10:'Gap жинсэн өмд', p11:'Uniqlo HEATTECH дулаан дотуур хувцас', p12:'ZARA пиджак', p13:'ZARA торгон даашинз', p14:'H&M нэхмэл цамц', p15:'H&M нарийн жинс', p16:'GU том загвартай свитер', p17:'GU өргөн өмд', p18:'Michael Kors цүнх', p19:'Michael Kors арьсан түрийвч',
 
       navHome:'Нүүр', navSearch:'Хайх', navCategories:'Ангилал', navCart:'Сагс', navAccount:'Бүртгэл',
 
