@@ -89,7 +89,7 @@ img, svg { display:block; }
   transition:.2s;
 }
 .header-actions button svg { width:11px; height:11px; }
-#cartBtn, #langBtn, #themeBtn {
+#cartBtn, #langBtn, #themeBtn, #menuBtn {
   height:36px; min-width:36px; padding:0 7px; font-size:12px;
 }
 #cartBtn { flex:0 0 36px; }
