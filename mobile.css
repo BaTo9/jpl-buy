@@ -228,7 +228,6 @@ body { padding-bottom:92px; }
   .logo span { font-size:8px; }
   .header-actions { gap:4px; margin-left:auto; }
   .header-actions button { height:30px; min-width:30px; padding:0 5px; }
-  .header-actions #menuBtn { width:30px; }
   .header-top > .search-wrap { padding-bottom:0; }
   .header-actions #langBtn { gap:2px; }
 }
